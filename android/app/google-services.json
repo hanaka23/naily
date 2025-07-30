@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "573628579018",
+    "project_id": "naily-13f98",
+    "storage_bucket": "naily-13f98.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573628579018:android:971f2ea366ce54682f4833",
+        "android_client_info": {
+          "package_name": "com.example.naily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573628579018-7emk2ld275b6er0a1f5vtk0e6ldhbl0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHQ5Gea0QJPHd8r7zw209Xl8uyN8qVMos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573628579018-7emk2ld275b6er0a1f5vtk0e6ldhbl0a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "573628579018-0cdr92n6odne3qfagd8kmv2td7ua58gq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.naily"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
