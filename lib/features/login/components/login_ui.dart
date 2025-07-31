@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:naily/core/components/pink_heart.dart';
 import 'package:naily/features/login/entities/login.dart';
 import 'package:naily/features/login/repositories/login_signin.dart';
 import 'package:naily/pages/feed_page.dart';
@@ -21,6 +22,7 @@ class _LoginUiState extends State<LoginUi> {
       mainAxisSize: MainAxisSize.min, // これが重要！
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        const PinkHeart(),
         TextField(
           onChanged: (value) => email = value,
           decoration: const InputDecoration(labelText: 'メールアドレス'),
