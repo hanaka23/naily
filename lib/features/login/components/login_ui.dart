@@ -45,9 +45,13 @@ class _LoginUiState extends State<LoginUi> {
               onPressed: () async {
                 isLogin = await signInWithEmail(email, password);
                 if (isLogin) {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const FeedPage()),
+                    MaterialPageRoute(
+                      builder: (context) => const FeedPage(),
+                    ),
+                    // 遷移先でログイン画面に戻れないようにする
+                    (Route<dynamic> route) => false,
                   );
                 } else {
                   errorMessage = 'メールアドレスまたはパスワードが正しくありません';
