@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart'; // 追加
+import 'package:naily/features/login/repositories/login_user_state.dart';
+import 'package:naily/pages/feed_page.dart';
+import 'package:naily/pages/login_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // 追加
+  await Firebase.initializeApp(); // 
   runApp(const MyApp());
 }
 
@@ -15,15 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
-      home: const MyHomePage(title: 'naily'),
+      home: userState() ? const FeedPage() : const LoginPage(),
     );
-  }
-}
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
