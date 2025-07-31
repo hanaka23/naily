@@ -16,7 +16,13 @@ class LoginPage extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 350),
             child: const Padding(
               padding: EdgeInsets.all(16.0),
-              child: LoginUi(),
+              child: Column(
+                children: [
+                  const LoginUi(),
+                  SizedBox(height: 20),
+                  SignupButton(),
+                ],
+              ),
             ),
           ),
         ),
