@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:naily/features/signup/repositories/signup_create_firestore.dart';
 
 Future createUserWithEmailAndPassword(String email, String password) async {
   try {
@@ -6,6 +9,7 @@ Future createUserWithEmailAndPassword(String email, String password) async {
       email: email,
       password: password,
     );
+    createUserInFirestore(email);
     return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
