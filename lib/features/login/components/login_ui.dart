@@ -17,60 +17,44 @@ class _LoginUiState extends State<LoginUi> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              onChanged: (value) {
-                email = value;
-              },
-              decoration: const InputDecoration(
-                labelText: 'メールアドレス',
-              ),
-            ),
-            TextField(
-              onChanged: (value) {
-                password = value;
-              },
-              decoration: const InputDecoration(
-                labelText: 'パスワード',
-              ),
-              obscureText: true,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                final loginEntity = LoginEntity(email: email, password: password);
-                final isLoginSuccess = await signInWithEmail(loginEntity.email, loginEntity.password);
-                if (isLoginSuccess) {
-                  if (!mounted) return;
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FeedPage(),
-                    ),
-                    (Route<dynamic> route) => false,
-                  );
-                } else {
-                  setState(() {
-                    errorMessage = 'メールアドレスまたはパスワードが正しくありません';
-                  });
-                }
-              },
-              child: const Text('ログイン'),
-            ),
-            if (errorMessage != null)
-              Text(
-                errorMessage!,
-                style: const TextStyle(color: Colors.red),
-              ),
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min, // これが重要！
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        TextField(
+          onChanged: (value) => email = value,
+          decoration: const InputDecoration(labelText: 'メールアドレス'),
         ),
-      ),
+        TextField(
+          onChanged: (value) => password = value,
+          decoration: const InputDecoration(labelText: 'パスワード'),
+          obscureText: true,
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            final loginEntity = LoginEntity(email: email, password: password);
+            final isLoginSuccess = await signInWithEmail(loginEntity.email, loginEntity.password);
+            if (isLoginSuccess) {
+              if (!mounted) return;
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const FeedPage()),
+                (route) => false,
+              );
+            } else {
+              setState(() {
+                errorMessage = 'メールアドレスまたはパスワードが正しくありません';
+              });
+            }
+          },
+          child: const Text('ログイン'),
+        ),
+        if (errorMessage != null)
+          Text(
+            errorMessage!,
+            style: const TextStyle(color: Colors.red),
+          ),
+      ],
     );
   }
 }
