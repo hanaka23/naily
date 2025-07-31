@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:naily/features/login/entities/login.dart';
 import 'package:naily/features/login/repositories/login_signin.dart';
 import 'package:naily/pages/feed_page.dart';
 
@@ -12,7 +13,6 @@ class LoginUi extends StatefulWidget {
 class _LoginUiState extends State<LoginUi> {
   String email = '';
   String password = '';
-  bool isLogin = false;
   String? errorMessage;
 
   @override
@@ -40,21 +40,25 @@ class _LoginUiState extends State<LoginUi> {
               decoration: const InputDecoration(
                 labelText: 'パスワード',
               ),
+              obscureText: true,
             ),
             ElevatedButton(
               onPressed: () async {
-                isLogin = await signInWithEmail(email, password);
-                if (isLogin) {
+                final loginEntity = LoginEntity(email: email, password: password);
+                final isLoginSuccess = await signInWithEmail(loginEntity.email, loginEntity.password);
+                if (isLoginSuccess) {
+                  if (!mounted) return;
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const FeedPage(),
                     ),
-                    // 遷移先でログイン画面に戻れないようにする
                     (Route<dynamic> route) => false,
                   );
                 } else {
-                  errorMessage = 'メールアドレスまたはパスワードが正しくありません';
+                  setState(() {
+                    errorMessage = 'メールアドレスまたはパスワードが正しくありません';
+                  });
                 }
               },
               child: const Text('ログイン'),
