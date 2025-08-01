@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:naily/core/styles/input_style.dart';
 import 'package:naily/features/signup/entities/signup.dart';
 import 'package:naily/features/signup/repositories/signup_repository.dart';
 import 'package:naily/pages/feed_page.dart';
@@ -25,17 +26,13 @@ class _SignupUiState extends State<SignupUi> {
             onChanged: (value) {
               email = value;
             },
-            decoration: const InputDecoration(
-              labelText: 'メールアドレス',
-            ),
+            decoration: customInputDecoration.copyWith(labelText: 'メールアドレス'),
           ),
           TextField(
             onChanged: (value) {
               password = value;
             },
-            decoration: const InputDecoration(
-              labelText: 'パスワード',
-            ),
+            decoration: customInputDecoration.copyWith(labelText: 'パスワード'),
             obscureText: true,
           ),
           ElevatedButton(

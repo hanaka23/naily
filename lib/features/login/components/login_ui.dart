@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naily/core/components/pink_heart.dart';
+import 'package:naily/core/styles/input_style.dart';
 import 'package:naily/features/login/entities/login.dart';
 import 'package:naily/features/login/repositories/login_signin.dart';
 import 'package:naily/pages/feed_page.dart';
@@ -25,14 +26,14 @@ class _LoginUiState extends State<LoginUi> {
         const PinkHeart(),
         TextField(
           onChanged: (value) => email = value,
-          decoration: const InputDecoration(labelText: 'メールアドレス'),
+          decoration: customInputDecoration.copyWith(labelText: 'メールアドレス'),
         ),
         TextField(
           onChanged: (value) => password = value,
-          decoration: const InputDecoration(labelText: 'パスワード'),
+          decoration: customInputDecoration.copyWith(labelText: 'パスワード'),
           obscureText: true,
         ),
-        ElevatedButton(
+        TextButton(
           onPressed: () async {
             final loginEntity = LoginEntity(email: email, password: password);
             final isLoginSuccess = await signInWithEmail(loginEntity.email, loginEntity.password);
