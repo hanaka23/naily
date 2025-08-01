@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:naily/core/components/pink_heart.dart';
+import 'package:naily/core/styles/button_gray_style.dart';
+import 'package:naily/core/styles/button_pink_style.dart';
 import 'package:naily/core/styles/input_style.dart';
 import 'package:naily/features/login/entities/login.dart';
 import 'package:naily/features/login/repositories/login_signin.dart';
@@ -34,6 +36,9 @@ class _LoginUiState extends State<LoginUi> {
           obscureText: true,
         ),
         TextButton(
+          style: customPinkButtonStyle,
+          child: const Text('ログイン'),
+          
           onPressed: () async {
             final loginEntity = LoginEntity(email: email, password: password);
             final isLoginSuccess = await signInWithEmail(loginEntity.email, loginEntity.password);
@@ -50,7 +55,6 @@ class _LoginUiState extends State<LoginUi> {
               });
             }
           },
-          child: const Text('ログイン'),
         ),
         if (errorMessage != null)
           Text(
