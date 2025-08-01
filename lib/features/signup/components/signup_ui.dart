@@ -22,7 +22,7 @@ class _SignupUiState extends State<SignupUi> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TextField(
             onChanged: (value) {
