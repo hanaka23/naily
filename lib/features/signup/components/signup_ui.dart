@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:naily/core/styles/button_gray_style.dart';
 import 'package:naily/core/styles/button_pink_style.dart';
 import 'package:naily/core/styles/input_style.dart';
+import 'package:naily/core/theme/app_spacing.dart';
 import 'package:naily/features/signup/entities/signup.dart';
 import 'package:naily/features/signup/repositories/signup_repository.dart';
 import 'package:naily/pages/feed_page.dart';
@@ -20,7 +21,8 @@ class _SignupUiState extends State<SignupUi> {
   
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      width: 300,
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -30,6 +32,9 @@ class _SignupUiState extends State<SignupUi> {
             },
             decoration: customInputDecoration.copyWith(labelText: 'メールアドレス'),
           ),
+          
+          SizedBox(height: AppSpacing.sm),
+
           TextField(
             onChanged: (value) {
               password = value;
@@ -37,6 +42,9 @@ class _SignupUiState extends State<SignupUi> {
             decoration: customInputDecoration.copyWith(labelText: 'パスワード'),
             obscureText: true,
           ),
+
+          SizedBox(height: AppSpacing.sm),
+
           TextButton(
             style: customPinkButtonStyle,
             onPressed: () async {
