@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:naily/core/styles/button_gray_style.dart';
+import 'package:naily/core/styles/button_pink_style.dart';
+import 'package:naily/core/styles/input_style.dart';
+import 'package:naily/core/theme/app_spacing.dart';
 import 'package:naily/features/signup/entities/signup.dart';
 import 'package:naily/features/signup/repositories/signup_repository.dart';
 import 'package:naily/pages/feed_page.dart';
@@ -17,28 +21,32 @@ class _SignupUiState extends State<SignupUi> {
   
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      width: 300,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TextField(
             onChanged: (value) {
               email = value;
             },
-            decoration: const InputDecoration(
-              labelText: 'メールアドレス',
-            ),
+            decoration: customInputDecoration.copyWith(labelText: 'メールアドレス'),
           ),
+          
+          SizedBox(height: AppSpacing.sm),
+
           TextField(
             onChanged: (value) {
               password = value;
             },
-            decoration: const InputDecoration(
-              labelText: 'パスワード',
-            ),
+            decoration: customInputDecoration.copyWith(labelText: 'パスワード'),
             obscureText: true,
           ),
-          ElevatedButton(
+
+          SizedBox(height: AppSpacing.sm),
+
+          TextButton(
+            style: customPinkButtonStyle,
             onPressed: () async {
               final signupEntity = SignupEntity(email: email, password: password);
               final isSignupSuccess = await createUserWithEmailAndPassword(signupEntity.email, signupEntity.password);
@@ -57,7 +65,7 @@ class _SignupUiState extends State<SignupUi> {
                 });
               }
             },
-            child: const Text('アカウント登録'),
+            child: const Text('新規会員登録'),
           ),
           if (errorMessage != null)
             Text(
