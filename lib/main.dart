@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naily/features/login/repositories/login_user_state.dart';
 import 'package:naily/pages/feed_page.dart';
 import 'package:naily/pages/login_page.dart';
 import 'core/datasources/firebase_options.dart';
+import 'core/routes/go_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,12 +55,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'naily',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
-      home: userState() ? const FeedPage() : const LoginPage(),
+      // home: userState() ? const FeedPage() : const LoginPage(),
     );
   }
 }
