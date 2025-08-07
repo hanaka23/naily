@@ -1,65 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:naily/core/styles/button_pink_style.dart';
 import 'package:naily/core/styles/input_style.dart';
 import 'package:naily/core/theme/app_spacing.dart';
 import 'package:naily/features/login/entities/login.dart';
+import 'package:naily/features/login/providers/login_state.dart';
 import 'package:naily/features/login/repositories/login_signin.dart';
-import 'package:naily/pages/feed_page.dart';
 
-class LoginUi extends StatefulWidget {
+
+class LoginUi extends ConsumerWidget {
   const LoginUi({super.key});
 
   @override
-  State<LoginUi> createState() => _LoginUiState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginProvider);
+    final loginNotifier = ref.read(loginProvider.notifier);
 
-class _LoginUiState extends State<LoginUi> {
-  String email = '';
-  String password = '';
-  String? errorMessage;
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       width: 300,
       child: Column(
         children: <Widget>[
           TextField(
-            onChanged: (value) => email = value,
+            onChanged: loginNotifier.setEmail,
             decoration: customInputDecoration.copyWith(labelText: 'メールアドレス'),
           ),
-      
           SizedBox(height: AppSpacing.sm),
-      
           TextField(
-            onChanged: (value) => password = value,
-            decoration: customInputDecoration.copyWith(labelText: 'パスワード'),
+            onChanged: loginNotifier.setPassword,
             obscureText: true,
+            decoration: customInputDecoration.copyWith(labelText: 'パスワード'),
           ),
-      
           SizedBox(height: AppSpacing.sm),
-      
           TextButton(
             style: customPinkButtonStyle,
-            child: const Text('ログイン'),
-      
             onPressed: () async {
-              final loginEntity = LoginEntity(email: email, password: password);
-              final isLoginSuccess = await signInWithEmail(loginEntity.email, loginEntity.password);
-              if (isLoginSuccess) {
-                if (!mounted) return;
+              loginNotifier.clearError();
+              final loginEntity = LoginEntity(
+                email: loginState.email,
+                password: loginState.password,
+              );
+
+              final isSuccess = await signInWithEmail(
+                loginEntity.email,
+                loginEntity.password,
+              );
+
+              if (isSuccess) {
                 context.go('/feed');
               } else {
-                setState(() {
-                  errorMessage = 'メールアドレスまたはパスワードが正しくありません';
-                });
+                loginNotifier.setError('メールアドレスまたはパスワードが正しくありません');
               }
             },
+            child: const Text('ログイン'),
           ),
-          if (errorMessage != null)
+          if (loginState.errorMessage != null)
             Text(
-              errorMessage!,
+              loginState.errorMessage!,
               style: const TextStyle(color: Colors.red),
             ),
         ],

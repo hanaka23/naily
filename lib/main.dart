@@ -6,10 +6,11 @@ import 'package:naily/pages/feed_page.dart';
 import 'package:naily/pages/login_page.dart';
 import 'core/datasources/firebase_options.dart';
 import 'core/routes/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const AppInit());
+  runApp(const ProviderScope(child: AppInit()));
 }
 
 /// Firebaseの初期化を待ってからMyAppを表示
