@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naily/pages/login_page.dart';
 
 class FeedPage extends StatelessWidget {
@@ -18,11 +19,7 @@ class FeedPage extends StatelessWidget {
           onPressed: () async {
             // ここにログアウト処理を追加
             await FirebaseAuth.instance.signOut();
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-              (route) => false,
-            );
+            context.go('/login');
           },
           child: const Text('ログアウト'),
         ),

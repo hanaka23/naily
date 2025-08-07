@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:naily/core/styles/button_gray_style.dart';
 import 'package:naily/core/styles/button_pink_style.dart';
 import 'package:naily/core/styles/input_style.dart';
@@ -52,13 +53,7 @@ class _SignupUiState extends State<SignupUi> {
               final isSignupSuccess = await createUserWithEmailAndPassword(signupEntity.email, signupEntity.password);
               if (isSignupSuccess) {
                 if (!mounted) return;
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FeedPage(),
-                  ),
-                  (Route<dynamic> route) => false,
-                );
+                  context.go('/feed'); 
               } else {
                 setState(() {
                   errorMessage = 'メールアドレスまたはパスワードが正しくありません';
